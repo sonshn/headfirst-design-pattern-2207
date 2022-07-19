@@ -96,6 +96,8 @@ public class StarbuzzCoffee {
     }
 }
 ```
+![decorator_pattern_1](./img/decorator_pattern_1.jpg)
+![decorator_pattern_2](./img/decorator_pattern_2.jpg)
 
 - **구상 구성 요소**로 어떤 작업을 처리하는 코드에 데코레이터 패턴을 적용하면 코드가 제대로 작동하지 않는다.
 - **추상 구성 요소**로 돌아가는 코드에는 데코레이터 패턴을 적용해야만 한다.
