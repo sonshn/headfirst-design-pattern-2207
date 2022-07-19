@@ -17,9 +17,11 @@ OCP를 준수하기 위해 새로운 단계의 추상화를 하다 보면 코드
 
 하지만 **구성**으로 객체의 행동을 확장하면 실행 중에 **동적으로** 행동을 설정할 수 있기 때문에, <u>클래스 코드를 건드리지 않고도 객체에 기능을 추가할 수 있다 **(Decorator Pattern**)</u>.
 
+<br>
+
 > **객체를 동적으로 구성할 때 장점**
-    - 기존 코드를 고치지 않고 새로운 코드를 만들어서 기능을 추가할 수 있다.
-    - 코드 수정에 따른 버그나 에러를 막을 수 있다.
+- 기존 코드를 고치지 않고 새로운 코드를 만들어서 기능을 추가할 수 있다.
+- 코드 수정에 따른 버그나 에러를 막을 수 있다.
 
 ---
 
@@ -61,6 +63,7 @@ public class HouseBlend extends Beverage { ... }
  - Beverage 클래스를 인터페이스로 만들지 않고 추상 클래스로 만든 이유
  	- 기존 코드를 고치는 일을 최대한 피하기 위해 추상 클래스로 생성
 <br>
+
 ```java
 public class Mocha extends CondimentDecorator {
 	public Mocha(Beverage beverage) {
@@ -75,6 +78,7 @@ public class Mocha extends CondimentDecorator {
     - 인스턴스 변수를 감싸고자 하는 객체로 설정하는 생성자
         - 데코레이터의 생성자에 감싸고자 하는 음료 객체를 전달하는 방식을 사용
 <br>
+
 ```java
 public class StarbuzzCoffee {
     public static void main(String args[]) {
@@ -120,4 +124,3 @@ public class StarbuzzCoffee {
 ### Usecase
 
 - ```Java I/O``` 패키지
-
