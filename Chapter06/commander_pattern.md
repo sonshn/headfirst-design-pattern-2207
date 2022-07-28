@@ -11,32 +11,33 @@
 
 ---
 
-## '커맨드 객체'
-- 일련의 행동들을 특정 receiver와 연결함으로써 특정 객체에 관한 특정 작업 요청을 캡슐화해준다.
-- 행동과 receiver를 한 객체에 넣고, ```execute()``` 하나만 외부에 공개하는 방법을 써야 한다.
-- ```execute()``` 호출에 따라 receiver에서 일련의 작업을 처리한다.
+## Commander Pattern
+
+- **커맨드 객체**
+    - 일련의 행동들을 특정 receiver와 연결함으로써 특정 객체에 관한 특정 작업 요청을 캡슐화해준다.
+    - 행동과 receiver를 한 객체에 넣고, ```execute()``` 하나만 외부에 공개해야한다.
 
     <br>
 
-    - **클래스 다이어그램**
+**클래스 다이어그램**
 
-    <br>
+<br>
 
-    ![Commander 패턴 클래스 다이어그램](/Chapter06\commander_pattern_1.jpg)
+![Commander 패턴 클래스 다이어그램](/Chapter06\commander_pattern_1.jpg)
 
-    <br>
+<br>
     
-    1. **Client**: **ConcreteCommand**를 생성하고 **Receiver**를 설정
-    2. **Invoker**: 명령이 들어있으며, ```execute()```를 호출함으로써 커맨드 객체에게 특정 작업을 수행해 달라는 요구를 하게 된다.
-    3. **Command**: Command는 모든 커맨드 객체에서 구현해야 하는 인터페이스
-        - 모든 명령은 ```execute()``` 호출로 수행되며, 이 메소드는 **Receiver**에 특정 작업을 처리하라는 지시를 전달한다.
-    4. **ConcreteCommand**: 특정 행동과 **Receiver**를 연결해준다. Invoker에서 ```execute()``` 호출로 요청하면 **ConcreteCommand** 객체에서 **Receiver**에 있는 메소드를 호출해서 그 작업을 처리한다.
-        - ```execute()```에서는 **Receiver**에 있는 메소드를 호출해서 요청된 작업을 수행한다.
-    5. **Receiver**: 요구 사항을 수행할 때 어떤 일을 처리해야 하는지 알고 있는 객체
+1. **Client**: **ConcreteCommand**를 생성하고 **Receiver**를 설정
+2. **Invoker**: 명령이 들어있으며, ```execute()```를 호출함으로써 커맨드 객체에게 특정 작업을 수행해 달라는 요구를 하게 된다.
+3. **Command**: Command는 모든 커맨드 객체에서 구현해야 하는 인터페이스
+    - 모든 명령은 ```execute()``` 호출로 수행되며, 이 메소드는 **Receiver**에 특정 작업을 처리하라는 지시를 전달한다.
+4. **ConcreteCommand**: 특정 행동과 **Receiver**를 연결해준다. Invoker에서 ```execute()``` 호출로 요청하면 **ConcreteCommand** 객체에서 **Receiver**에 있는 메소드를 호출해서 그 작업을 처리한다.
+    - ```execute()```에서는 **Receiver**에 있는 메소드를 호출해서 요청된 작업을 수행한다.
+5. **Receiver**: 요구 사항을 수행할 때 어떤 일을 처리해야 하는지 알고 있는 객체
 
-    <br>
+<br>
 
-    - **커맨드 인터페이스** 구현
+- **커맨드 인터페이스** 구현
     커맨드 객체는 모두 같은 인터페이스를 구현해야 한다.
     ```java
     public interface Command{
@@ -47,7 +48,7 @@
 
     <br>
 
-    - **커맨드 클래스** 구현
+- **커맨드 클래스** 구현
     **Light** 클래스에는 **on()** 과 **off()** 2개의 메소드가 있다고 가정한다.
     ```java
     public class LightOnCommand implements Command{
@@ -71,7 +72,7 @@
 
     <br>
 
-    - **커맨드 객체 사용**
+- **커맨드 객체 사용**
     ```java
     public class SimpleRemoteControl{
         Command slot;
@@ -93,7 +94,7 @@
 
     <br>
 
-    - 커맨드 객체 **테스트 클래스**
+- 커맨드 객체 **테스트 클래스**
     ```java
     // Client
     public class RemoteControlTest{
@@ -114,14 +115,16 @@
 
     <br>
 
-    - **NULL 객체**: 반환할 객체도 없고 클라이언트가 null을 처리하지 않게 하고 싶을 때 활용하면 좋다.  
+- **NULL 객체**: 반환할 객체도 없고 클라이언트가 null을 처리하지 않게 하고 싶을 때 활용하면 좋다.  
 
     <br>
 
-    - **람다 표현식**
-        - 구상 커맨드 객체를 생성하는 단계를 건너뛸 수 있다.
-        - 구상 커맨드 객체의 인스턴스를 생성하는 대신 그 자리에 <u>**함수 객체**</u>를 사용할 수 있어 모든 구상 커맨드 클래스를 지울 수 있다.
-        - 단, **Command 인터페이스**에 추상 메소드가 <u>**1**</u>개 일 때만 사용할 수 있다.
+- **람다 표현식**
+    - 구상 커맨드 객체를 생성하는 단계를 건너뛸 수 있다.
+    - 구상 커맨드 객체의 인스턴스를 생성하는 대신 그 자리에 <u>**함수 객체**</u>를 사용할 수 있어 모든 구상 커맨드 클래스를 지울 수 있다.
+    - 단, **Command 인터페이스**에 추상 메소드가 <u>**1**</u>개 일 때만 사용할 수 있다.
+
+---
 
 ## Usecase
 
