@@ -79,7 +79,7 @@ public class ChocolateBoiler{
     <br>
     - **해결 방법**
 
-        - ```getInstance()```에  ```synchronized``` 키워드를 추가하면, 한 thread가 메소드 사용을 끝내기 전까지 다른 스레드는 기다려야 하기 때문에 동시에 실행되지 않는다. (성능 저하 문제와 병목으로 작용할 수 있는 문제 때문에 <u>**메소드가 시작될 때만 효율적**이다.</u>)
+        - ```getInstance()```에  ```synchronized``` 키워드를 추가하면, 한 thread가 메소드 사용을 끝내기 전까지 다른 thread는 기다려야 하기 때문에 동시에 실행되지 않는다. (성능 저하 문제와 병목으로 작용할 수 있는 문제 때문에 <u>**메소드가 시작될 때만 효율적**이다.</u>)
     
         <br>
 
@@ -163,8 +163,40 @@ public class SingletonClient{
 }
 ```
 
+## Lazy Holder
+
+```java
+private class Singleton{
+    private Singleton() {}
+    
+    // 중첩 클래스
+    private static class SingletonHolder {
+        private static final Singleton INSTANCE = new Singleton();
+    }
+
+    public static Singleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+}
+```
+
+- 가장 널리 쓰이고, 성능이 뛰어난 방법이다.
+- **Lazy Initialization**이 가능하면서, **Thread들간의 동기화 문제를 해결**할 수 있다.
+- ```final```: 다시 값이 할당되지 않도록 한다.
+
 ---
 
 ## Usecase
 
-- 스레드 풀, 캐시, 대화상자, 사용자 설정, 레지스트리 설정을 처리하는 객체, 로그 기록용 객체, 디바이스 드라이버
+- **DB**: 스레드 풀, 캐시, 로그 기록용 객체
+- 대화상자
+- 사용자/레지스트리 설정을 처리하는 객체
+- 디바이스 드라이버
+- Spring Container (**Spring Bean**)
+
+---
+
+## References
+
+- [Initialization on demand ```holder``` idiom](https://jobjava00.github.io/language/java/basic/singleton/)
+- [Lazy Holder Singleton Pattern](https://dev-coco.tistory.com/109)
