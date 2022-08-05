@@ -185,8 +185,6 @@ public abstract class CaffeineBeverage{
         - 단, ```sort()```가 특정 슈퍼클래스에 정의된 것이 아니므로 ```compareTo()```를 구현했는지를 알 수 없다.
         - 그래서 ```Comparable```이라는 인터페이스를 도입한다.
         - 서브클래스를 만들어서 쓰는 대신 ```Comparable``` 인터페이스를 구현해야 한다.
-    
-- 
 
 <br>
 
