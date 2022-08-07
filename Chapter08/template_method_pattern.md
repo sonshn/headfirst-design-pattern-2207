@@ -83,7 +83,6 @@ public abstract class CaffeineBeverageWithHook{
     - Template Method에서 앞으로 일어날 일이나 막 일어난 일에 서브클래스가 반응할 수 있도록 기회를 제공하는 용도
     - 서브클래스가 추상 클래스에서 진행되는 작업을 처리할지 말지 결정하게 하는 기능을 부여하는 용도
 
-
 ---
 
 ## Feature
@@ -162,9 +161,12 @@ public abstract class CaffeineBeverage{
 
 - **Java API**
     - ```Arrays.sort()```
-
+    <br>
     ```java
-    ...
+    public static void sort(Object[] a){
+        Object aux[] = (Object)a.clone();
+        mergeSort(aux, a, 0, a.length, 0);
+    }
 
     public static void mergeSort(Object src[], Object dest[], int low, int high, int off){
         ...
@@ -181,12 +183,28 @@ public abstract class CaffeineBeverage{
     ```
 
     - ```mergeSort()```: Template Method
+        - ```sort()```에서 알고리즘을 처리한다. 어떤 클래스도 과정을 고칠 수 없으며, ```sort()```는 ```Comparable```인터페이스에서 제공하는 ```compareTo()```에 의존한다. 
     - ```compareTo()```를 구현해야 Template Method가 완성된다.
         - 단, ```sort()```가 특정 슈퍼클래스에 정의된 것이 아니므로 ```compareTo()```를 구현했는지를 알 수 없다.
         - 그래서 ```Comparable```이라는 인터페이스를 도입한다.
-        - 서브클래스를 만들어서 쓰는 대신 ```Comparable``` 인터페이스를 구현해야 한다.
+        - **<u>서브클래스를 만들어서 쓰는 대신 ```Comparable``` 인터페이스를 구현해야 한다.</u>**
 
-<br>
+    ```java
+    public class Duck implements Comparable<Duck>{
+        ...
+
+        //sort()에서 필요로 하는 것
+        public int compareTo(Duck otherDuck){
+            if (this.weight < otherDuck.weight){
+                return -1;
+            } else if (this.weight == otherDuck.weight){
+                return 0;
+            } else{
+                return 1;
+            }
+        }
+    }
+    ```
 
 - **Framework** 
     - 프레임워크로 작업이 처리되는 방식을 제어하면서도 프레임워크에서 처리하는 알고리즘의 각 단계를 사용자가 마음대로 지정할 수 있다.
